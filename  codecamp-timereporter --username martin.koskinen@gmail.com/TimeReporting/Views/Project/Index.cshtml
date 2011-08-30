@@ -7,7 +7,28 @@
 
 <p>
     @Html.ActionLink("Create Dummy project", "Create")
+    
 </p>
 Project: 
 @Html.DropDownList("projectTitle", String.Empty) 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#projectTitle').change(function () {
+            alert($(this).val());
+            $.ajax({
+                Url: "@Url.Action("setCurrentProject", "ProjectController", null)",
+                data: { "id": $(this).val() }, 
+                success: function (response) { 
+                            $("#results").html(response); 
+                        },
+                type: "GET"
+            });
 
+        });
+    }); 
+</script>
+
+@using (Html.BeginForm("setCurrentProject", "ProjectController")) {
+    @Html.DropDownList("projectTitle", String.Empty) 
+    <input type="submit" value="Edit" /> 
+}
