@@ -12,7 +12,7 @@ namespace TimeReporting.Controllers
     [Authorize(Roles="ProjectManager")]
     public class ProjectManagerController : Controller
     {
-        private ProjectDBContext db = new ProjectDBContext();
+        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
 
         //
         // GET: /ProjectManager/
