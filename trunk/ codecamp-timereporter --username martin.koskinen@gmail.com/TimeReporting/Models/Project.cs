@@ -12,7 +12,7 @@ namespace TimeReporting.Models
         public string title { get; set; }
         public string client { get; set; }
         public string managerName { get; set; }
-        public string userName { get; set; }
+        public List<string> userNames { get; set; }
         public List<Activity> projectActivities { get; set; }
     }
 }
