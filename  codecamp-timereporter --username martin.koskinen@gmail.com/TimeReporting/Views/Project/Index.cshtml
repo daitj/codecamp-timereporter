@@ -1,5 +1,12 @@
-﻿@{
+﻿@model IEnumerable<TimeReporting.Models.Project>
+@{
     ViewBag.Title = "ProjectView";
 }
 
 <h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create Dummy project", "Create")
+</p>
+Project: 
+@Html.DropDownList("projectTitle", String.Empty) 

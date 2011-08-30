@@ -10,11 +10,14 @@ namespace TimeReporting.Controllers
     public class ProjectController : Controller
     {
         private ProjectDBContext db = new ProjectDBContext();
+        private Project currentProject = null;
         //
         // GET: /Project/
 
         public ActionResult Index()
         {
+            ViewBag.projectTitle = new SelectList(db.Projects, "id", "title", currentProject);
+            //return View(db.Projects.ToList());
             return View();
         }
 
@@ -32,17 +35,23 @@ namespace TimeReporting.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
+        
 
         //
         // POST: /Project/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Project project)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    db.Projects.Add(project);
+                    db.SaveChanges();
+                    //return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Index");
             }
