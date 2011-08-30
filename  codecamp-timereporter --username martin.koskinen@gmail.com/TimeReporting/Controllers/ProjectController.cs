@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
 {
     public class ProjectController : Controller
     {
+        private ProjectDBContext db = new ProjectDBContext();
         //
         // GET: /Project/
 
