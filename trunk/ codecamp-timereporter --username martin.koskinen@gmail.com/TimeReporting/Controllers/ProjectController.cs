@@ -13,12 +13,32 @@ namespace TimeReporting.Controllers
         private Project currentProject = null;
         //
         // GET: /Project/
+        public ActionResult setCurrentProject()
+        {
 
+            return View();
+        }
+        [HttpPost]
+        public ActionResult setCurrentProject(int projectId)
+        {
+            currentProject = db.Projects.Find(projectId);
+
+            return View("Index");
+           //return RedirectToAction("Project");
+        }
         public ActionResult Index()
         {
+            /*List<Project> myProjects = db.Projects.ToList();
+            foreach (var i in myProjects)
+            {
+                if (!i.userNames.Contains(User.Identity.Name))
+                {
+                    myProjects.Remove(i);
+                }
+            }*/
             ViewBag.projectTitle = new SelectList(db.Projects, "id", "title", currentProject);
-            //return View(db.Projects.ToList());
-            return View();
+            return View(db.Projects.ToList());
+            //return View();
         }
 
         //

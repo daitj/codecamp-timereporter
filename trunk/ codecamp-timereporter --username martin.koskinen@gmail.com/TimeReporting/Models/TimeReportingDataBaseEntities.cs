@@ -10,16 +10,23 @@ namespace TimeReporting.Models
     {
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectMember> ProjectMembers { get; set; }
     }
 
-    public class TimeDataBaseInitializer : DropCreateDatabaseIfModelChanges<TimeReportingDataBaseEntities>
+    public class TimeDataBaseInitializer : DropCreateDatabaseAlways<TimeReportingDataBaseEntities>
     {
         protected override void Seed(TimeReportingDataBaseEntities context)
         {
             List<string> names = new List<string>();
             names.Add("Oka");
             names.Add("Martin");
-            var projects = new Project() { title = "Dricka kaffe", userNames = names };
+            foreach (var i in names)
+            {
+                var projectMember = new ProjectMember() {userName = i};
+                context.ProjectMembers.Add(projectMember);
+            }
+
+            var projects = new Project() { title = "Dricka kaffe", id = 1};
             context.Projects.Add(projects);
             context.SaveChanges();
         }
