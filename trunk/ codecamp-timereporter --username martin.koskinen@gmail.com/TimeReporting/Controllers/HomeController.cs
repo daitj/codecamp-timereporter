@@ -14,7 +14,7 @@ namespace TimeReporting.Controllers
 
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult About()
         {
             return View();
