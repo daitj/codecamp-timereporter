@@ -2,12 +2,17 @@
 
 namespace TimeReporting.Controllers
 {
-    public class LogonAuthorize : AuthorizeAttribute
+    public sealed class LogonAuthorize : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!(filterContext.Controller is AccountController))
+            bool skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
+            || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true);
+            if (!skipAuthorization)
+            {
                 base.OnAuthorization(filterContext);
+            }
         }
     }
+
 }
