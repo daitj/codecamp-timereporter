@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TimeReporting.Controllers;
+using System.Data.Entity;
+using TimeReporting.Models;
 
 namespace TimeReporting
 {
@@ -37,6 +39,8 @@ namespace TimeReporting
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            Database.SetInitializer(new TimeDataBaseInitializer());          
         }
     }
 }
