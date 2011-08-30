@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace TimeReporting.Models
 {
@@ -10,8 +11,12 @@ namespace TimeReporting.Models
         public int id { get; private set; }
         public string title { get; set; }
         public string client { get; set; }
-        public long managerId { get; set; }
-        public int userId { get; set; }
+        public string managerName { get; set; }
+        public string userName { get; set; }
         public List<Activity> projectActivities { get; set; }
+    }
+    public class ProjectDBContext : DbContext
+    {
+        public DbSet<Project> Projects { get; set; }
     }
 }
