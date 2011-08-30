@@ -3,46 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
 {
-    public class ProjectController : Controller
+    public class ProjectMemberController : Controller
     {
-        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
-        private Project currentProject = null;
         //
-        // GET: /Project/
-        public ActionResult setCurrentProject()
-        {
+        // GET: /ProjectMember/
 
-            return View();
-        }
-        [HttpPost]
-        public ActionResult setCurrentProject(int projectId)
-        {
-            currentProject = db.Projects.Find(projectId);
-
-            return View("Index");
-           //return RedirectToAction("Project");
-        }
         public ActionResult Index()
         {
-            /*List<Project> myProjects = db.Projects.ToList();
-            foreach (var i in myProjects)
-            {
-                if (!i.userNames.Contains(User.Identity.Name))
-                {
-                    myProjects.Remove(i);
-                }
-            }*/
-            ViewBag.projectTitle = new SelectList(db.Projects, "id", "title");
-            return View(db.Projects.ToList());
-            //return View();
+            return View();
         }
 
         //
-        // GET: /Project/Details/5
+        // GET: /ProjectMember/Details/5
 
         public ActionResult Details(int id)
         {
@@ -50,28 +25,22 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // GET: /Project/Create
+        // GET: /ProjectMember/Create
 
         public ActionResult Create()
         {
             return View();
-        }
-        
+        } 
 
         //
-        // POST: /Project/Create
+        // POST: /ProjectMember/Create
 
         [HttpPost]
-        public ActionResult Create(Project project)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    db.Projects.Add(project);
-                    db.SaveChanges();
-                    //return RedirectToAction("Index");
-                }
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -82,7 +51,7 @@ namespace TimeReporting.Controllers
         }
         
         //
-        // GET: /Project/Edit/5
+        // GET: /ProjectMember/Edit/5
  
         public ActionResult Edit(int id)
         {
@@ -90,7 +59,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // POST: /Project/Edit/5
+        // POST: /ProjectMember/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -108,7 +77,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // GET: /Project/Delete/5
+        // GET: /ProjectMember/Delete/5
  
         public ActionResult Delete(int id)
         {
@@ -116,7 +85,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // POST: /Project/Delete/5
+        // POST: /ProjectMember/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

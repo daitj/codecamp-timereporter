@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
 namespace TimeReporting.Models
 {
-    public class Project
+    public class ProjectMember
     {
-       
         public int id { get; set; }
-        public string title { get; set; }
-        public string client { get; set; }
-        public string managerName { get; set; }
+        public string userName { get; set; }
     }
 }
