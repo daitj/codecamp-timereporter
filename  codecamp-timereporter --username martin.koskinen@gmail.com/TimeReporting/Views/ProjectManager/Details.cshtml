@@ -1,0 +1,35 @@
+﻿@model TimeReporting.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Project</legend>
+
+    <div class="display-label">title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+
+    <div class="display-label">client</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.client)
+    </div>
+
+    <div class="display-label">managerName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.managerName)
+    </div>
+
+    <div class="display-label">userName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.userName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
