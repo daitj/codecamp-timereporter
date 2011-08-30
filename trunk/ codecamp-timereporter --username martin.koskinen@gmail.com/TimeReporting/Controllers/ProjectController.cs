@@ -9,7 +9,7 @@ namespace TimeReporting.Controllers
 {
     public class ProjectController : Controller
     {
-        private ProjectDBContext db = new ProjectDBContext();
+        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
         private Project currentProject = null;
         //
         // GET: /Project/

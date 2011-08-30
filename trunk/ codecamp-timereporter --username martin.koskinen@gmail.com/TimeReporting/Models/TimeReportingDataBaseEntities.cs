@@ -6,10 +6,9 @@ using System.Data.Entity;
 
 namespace TimeReporting.Models
 {
-    public class Activity
+    public class TimeReportingDataBaseEntities : DbContext
     {
-        public int id { get; private set; }
-        public string projectId { get; set; }
-        public string title { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Project> Projects { get; set; }
     }
 }
