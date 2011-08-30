@@ -11,24 +11,25 @@
 </p>
 Project: 
 @Html.DropDownList("projectTitle", String.Empty) 
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#projectTitle').change(function () {
-            alert($(this).val());
+            //alert($(this).val());
+           $.get("Project/ProjectDetails", { "id": $(this).val() },
+             function(data){
+                alert("Data Loaded: " + data);
+                });
             $.ajax({
-                Url: "@Url.Action("setCurrentProject", "ProjectController", null)",
+                Url: "@Url.Action("ProjectDetails", "Project")",
                 data: { "id": $(this).val() }, 
                 success: function (response) { 
                             $("#results").html(response); 
                         },
-                type: "GET"
+                dataType: "GET"
             });
 
         });
     }); 
 </script>
 
-@using (Html.BeginForm("setCurrentProject", "ProjectController")) {
-    @Html.DropDownList("projectTitle", String.Empty) 
-    <input type="submit" value="Edit" /> 
-}
