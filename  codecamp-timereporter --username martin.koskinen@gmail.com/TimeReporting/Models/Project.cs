@@ -15,8 +15,4 @@ namespace TimeReporting.Models
         public string userName { get; set; }
         public List<Activity> projectActivities { get; set; }
     }
-    public class ProjectDBContext : DbContext
-    {
-        public DbSet<Project> Projects { get; set; }
-    }
 }
