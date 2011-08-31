@@ -8,7 +8,9 @@ namespace TimeReporting.Models
 {
     public class ProjectMember
     {
-        public int id { get; set; }
+        public int ID { get; set; }
+        public int projectID { get; set; }
         public string userName { get; set; }
+        public virtual Project Project { get; set; }
     }
 }
