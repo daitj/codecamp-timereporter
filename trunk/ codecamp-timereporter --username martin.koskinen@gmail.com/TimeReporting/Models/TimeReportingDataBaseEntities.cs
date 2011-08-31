@@ -25,16 +25,18 @@ namespace TimeReporting.Models
 
             var projects = new Project() {title = "Dricka kaffe", client = "Åbo Akademi", managerName = "Backa"};
             context.Projects.Add(projects);
+            
+            Activity activity = new Activity() {projectID = projects.projectID, title = "Hämta kaffe"};
+                       
 
             foreach (var i in names)
             {
                 var projectMember = new ProjectMember() { userName = i, projectID = projects.projectID };
                 context.ProjectMembers.Add(projectMember);
-            }
 
-            Activity activity = new Activity() {projectID = projects.projectID, title = "Koka kaffe"};
-            context.Activities.Add(activity);
-            context.TimeRecords.Add(new TimeRecord() { date = DateTime.UtcNow, minutes = 50, comment = "Testar", projectID = projects.projectID, activityID = activity.activityID });
+                context.TimeRecords.Add(new TimeRecord() { userId = i, date = DateTime.UtcNow, minutes = 50, comment = "Testar", projectID = projects.projectID, activityID = activity.activityID });
+                context.Activities.Add(activity);
+            }
 
             context.SaveChanges();
         }
