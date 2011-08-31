@@ -73,15 +73,16 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ProjectManagerController.cs" />
     <Compile Include="Controllers\ProjectMemberController.cs" />
-    <Compile Include="Controllers\TimeRecordsController.cs" />
+    <Compile Include="Controllers\TimeRecordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\ProjectActivity.cs" />
     <Compile Include="Models\ProjectMember.cs" />
-    <Compile Include="Models\TimeRecords.cs" />
+    <Compile Include="Models\TimeRecord.cs" />
     <Compile Include="Models\TimeReportingDataBaseEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,7 +125,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -174,10 +177,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Views\Project\ProjectDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\TimeRecords\Index.cshtml" />
+    <Content Include="Views\TimeRecord\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

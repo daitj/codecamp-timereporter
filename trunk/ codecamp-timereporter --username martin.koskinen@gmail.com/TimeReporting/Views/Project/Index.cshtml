@@ -16,10 +16,12 @@ Project:
     $(document).ready(function () {
         $('#projectTitle').change(function () {
             //alert($(this).val());
-           $.get("Project/ProjectDetails", { "id": $(this).val() },
-             function(data){
-                alert("Data Loaded: " + data);
-                });
+           $.get("Project/ProjectDetails/", { "id": $(this).val() },
+             function (response) { 
+                            $("#results").html(response); 
+                        });
+
+                        ViewBag.id = $(this).val();
             $.ajax({
                 Url: "@Url.Action("ProjectDetails", "Project")",
                 data: { "id": $(this).val() }, 
@@ -33,3 +35,7 @@ Project:
     }); 
 </script>
 
+<p>
+    @{Html.RenderPartial("ProjectDetails", Model, new ViewDataDictionary { {"vb", ViewBag}});}
+
+</p>
