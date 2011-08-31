@@ -22,6 +22,20 @@ namespace TimeReporting.Controllers
             return View(timerecords.ToList());
         }
 
+        // POST: /TimeRecords
+        [HttpPost]
+        public ActionResult Index(TimeRecord time)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TimeRecords.Add(time);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(time);
+        }
+
         //
         // GET: /TimeRecord/Details/5
 
