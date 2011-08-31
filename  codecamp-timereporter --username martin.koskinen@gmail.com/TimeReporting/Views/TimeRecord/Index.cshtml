@@ -1,57 +1,90 @@
-﻿@model IEnumerable<TimeReporting.Models.TimeRecord>
+﻿@model TimeReporting.Models.TimeRecord
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Time Reporting";
 }
 
-<h2>Index</h2>
+<h2>Time Reporting</h2>
 
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Report Time</legend>
+        <table>
+        <tr>
+        <td class="editor-label">
+                @Html.LabelFor(model => model.projectID)
+        </td>
+        <td class="editor-label">
+                @Html.LabelFor(model => model.activityID)
+        </td>
+        <td class="editor-label">
+                @Html.LabelFor(model => model.minutes)
+        </td>
+        <td class="editor-label">
+                @Html.LabelFor(model => model.comment)
+        </td>
+        <td class="editor-label">
+                @Html.LabelFor(model => model.date)
+        </td>
+        </tr>
+        <tr>
+        <td class="editor-field">
+                @Html.TextBoxFor(m => m.projectID)
+                @Html.ValidationMessageFor(m => m.projectID)
+        </td>
+        <td class="editor-field">
+                @Html.TextBoxFor(m => m.activityID)
+                @Html.ValidationMessageFor(m => m.activityID)
+        </td>
+        <td class="editor-field">
+                @Html.TextBoxFor(m => m.minutes)
+                @Html.ValidationMessageFor(m => m.minutes)
+        </td>
+        <td class="editor-field">
+                @Html.TextBoxFor(m => m.comment)
+                @Html.ValidationMessageFor(m => m.comment)
+        </td>
+        <td class="editor-field">
+         <script>
+            $(function () {
+                $("#date").datepicker();
+            });
+	        </script>
+                @Html.TextBoxFor(m => m.date)
+                @Html.ValidationMessageFor(m => m.date)
+        </td>
+        </tr>
+        </table>
+        <p>
+            <a href="#" class="addMore">+Add More Projects</a>
+            <input type="submit" value="Submit" name="Index" />
+        </p>
+    </fieldset>
+}
+
+
+@*
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table>
     <tr>
-        <th>
-            Project
-        </th>
-        <th>
-            activityID
-        </th>
-        <th>
-            userName
-        </th>
-        <th>
-            minutes
-        </th>
-        <th>
-            date
-        </th>
         <th></th>
     </tr>
+
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Project.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.activityID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.userName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.minutes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
     </tr>
 }
-
 </table>
+*@
