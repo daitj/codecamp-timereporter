@@ -1,121 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
-{
-    public class TimeRecordsController : Controller
+{ 
+    public class TimeRecordController : Controller
     {
         private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
+
         //
-        // GET: /TimeRecords/
+        // GET: /TimeRecord/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
-        }
-
-        // POST: /TimeRecords
-        [HttpPost]
-        public ActionResult Index(TimeRecords time)
-        {
-            if (ModelState.IsValid)
-            {
-                db.TimeRecords.Add(time);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(time);
+            var timerecords = db.TimeRecords.Include(t => t.Project);
+            return View(timerecords.ToList());
         }
 
         //
-        // GET: /TimeRecords/Details/5
+        // GET: /TimeRecord/Details/5
 
-        public ActionResult Details(int id)
+        public ViewResult Details(int id)
         {
-            return View();
+            TimeRecord timerecord = db.TimeRecords.Find(id);
+            return View(timerecord);
         }
 
         //
-        // GET: /TimeRecords/Create
+        // GET: /TimeRecord/Create
 
         public ActionResult Create()
         {
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title");
             return View();
         } 
 
         //
-        // POST: /TimeRecords/Create
+        // POST: /TimeRecord/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(TimeRecord timerecord)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                db.TimeRecords.Add(timerecord);
+                db.SaveChanges();
+                return RedirectToAction("Index");  
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title", timerecord.projectID);
+            return View(timerecord);
         }
         
         //
-        // GET: /TimeRecords/Edit/5
+        // GET: /TimeRecord/Edit/5
  
         public ActionResult Edit(int id)
         {
-            return View();
+            TimeRecord timerecord = db.TimeRecords.Find(id);
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title", timerecord.projectID);
+            return View(timerecord);
         }
 
         //
-        // POST: /TimeRecords/Edit/5
+        // POST: /TimeRecord/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(TimeRecord timerecord)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
- 
+                db.Entry(timerecord).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title", timerecord.projectID);
+            return View(timerecord);
         }
 
         //
-        // GET: /TimeRecords/Delete/5
+        // GET: /TimeRecord/Delete/5
  
         public ActionResult Delete(int id)
         {
-            return View();
+            TimeRecord timerecord = db.TimeRecords.Find(id);
+            return View(timerecord);
         }
 
         //
-        // POST: /TimeRecords/Delete/5
+        // POST: /TimeRecord/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {            
+            TimeRecord timerecord = db.TimeRecords.Find(id);
+            db.TimeRecords.Remove(timerecord);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
         {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

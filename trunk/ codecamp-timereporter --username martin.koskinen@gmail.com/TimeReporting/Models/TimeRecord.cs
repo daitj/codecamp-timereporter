@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace TimeReporting.Models
 {
-    public class TimeRecords
+    public class TimeRecord
     {
         public int ID { get; set; }
 
@@ -30,6 +30,8 @@ namespace TimeReporting.Models
         [Display(Name = "Comment")]
         [DataType(DataType.MultilineText)]
         public string comment { get; set; }
+
+        public virtual Project Project { get; set; }
 
     }
 }
