@@ -11,7 +11,7 @@ namespace TimeReporting.Models
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectMember> ProjectMembers { get; set; }
-        public DbSet<TimeRecord> TimeRecords { get; set; }
+        public DbSet<TimeRecords> TimeRecords { get; set; }
     }
 
     public class TimeDataBaseInitializer : DropCreateDatabaseAlways<TimeReportingDataBaseEntities>
@@ -23,7 +23,7 @@ namespace TimeReporting.Models
             names.Add("Martin");
 
 
-            var projects = new Project() { title = "Dricka kaffe"};
+            var projects = new Project() { title = "Dricka kaffe", client = "Åbo Akademi", managerName = "Backa"};
             context.Projects.Add(projects);
 
             foreach (var i in names)
@@ -32,7 +32,9 @@ namespace TimeReporting.Models
                 context.ProjectMembers.Add(projectMember);
             }
 
-
+            Activity activity = new Activity() {projectID = projects.projectID, title = "Koka kaffe"};
+            context.Activities.Add(activity);
+            context.TimeRecords.Add(new TimeRecords() { date = DateTime.UtcNow, minutes = 50, comment = "Testar", projectID = projects.projectID, activityID = activity.activityID });
 
             context.SaveChanges();
         }
