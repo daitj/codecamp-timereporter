@@ -31,7 +31,5 @@ namespace TimeReporting.Models
         [DataType(DataType.MultilineText)]
         public string comment { get; set; }
 
-        public virtual Project Project { get; set; }
-
     }
 }
