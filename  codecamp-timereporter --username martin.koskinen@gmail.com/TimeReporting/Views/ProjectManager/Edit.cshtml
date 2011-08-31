@@ -14,7 +14,7 @@
     <fieldset>
         <legend>Project</legend>
 
-        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.projectID)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.title)
@@ -38,14 +38,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.managerName)
             @Html.ValidationMessageFor(model => model.managerName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.userName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.userName)
-            @Html.ValidationMessageFor(model => model.userName)
         </div>
 
         <p>

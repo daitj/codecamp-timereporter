@@ -23,13 +23,8 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.managerName)
     </div>
-
-    <div class="display-label">userName</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.userName)
-    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.projectID}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

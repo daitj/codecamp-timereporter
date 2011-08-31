@@ -36,7 +36,7 @@ namespace TimeReporting.Controllers
                     myProjects.Remove(i);
                 }
             }*/
-            ViewBag.projectTitle = new SelectList(db.Projects, "id", "title");
+            ViewBag.projectTitle = new SelectList(db.Projects, "projectID", "title");
             return View(db.Projects.ToList());
             //return View();
         }
