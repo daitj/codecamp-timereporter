@@ -11,22 +11,31 @@ namespace TimeReporting.Controllers
     {
         private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
         private Project currentProject = null;
+
         
+        public ActionResult ProjectDetails(string input)
+        {
+            try
+            {
+                int id = Int32.Parse(input);
+                currentProject = db.Projects.Find(id);
+            }
+            catch
+            {
+                return PartialView("ProjectDetails");
+            }
+
+            return PartialView("ProjectDetails", currentProject);
+        }
+
+        [HttpPost]
         public ActionResult ProjectDetails()
         {
-            currentProject = db.Projects.Find(ViewBag.id);
-            //int projectId
+            
 
-            return PartialView("");
+            return PartialView("ProjectDetails");
         }
-        [HttpPost]
-        public ActionResult ProjectDetails(int dosometing)
-        {
-            //currentProject = db.Projects.Find(projectId);
-
-            return View("Index");
-           //return RedirectToAction("Project");
-        }
+        
 
         //
         // GET: /Project/
@@ -41,7 +50,7 @@ namespace TimeReporting.Controllers
                 }
             }*/
             ViewBag.projectTitle = new SelectList(db.Projects, "projectID", "title");
-            return View(db.Projects.ToList());
+            return View();
             //return View();
         }
 

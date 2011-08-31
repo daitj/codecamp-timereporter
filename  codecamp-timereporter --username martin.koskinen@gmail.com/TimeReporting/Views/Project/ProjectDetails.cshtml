@@ -1,2 +1,61 @@
-﻿@model IEnumerable<TimeReporting.Models.Project>
-Hej testing testing
+﻿@model  TimeReporting.Models.Project
+<H2>Client: </H2>
+@if (Model != null)
+{
+   <span> @Model.client; </span>
+}
+
+<h2>Work effort: </h2>
+ <table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Task
+        </th>
+        <th>
+            Time in minutes
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Comment
+        </th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model.TimeRecords)
+        {
+            
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userId)
+            </td>
+            <td>
+                @foreach(var i in Model.Activitys)
+                {
+                    if(i.activityID == item.activityID)
+                    {
+                        @Html.DisplayFor(modelItem => i.title)
+                    }
+                }                   
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.minutes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment)
+            </td>
+        </tr> 
+        }
+    }
+
+</table>
+
+

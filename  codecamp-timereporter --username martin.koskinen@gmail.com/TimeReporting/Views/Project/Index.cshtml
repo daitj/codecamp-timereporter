@@ -16,26 +16,25 @@ Project:
     $(document).ready(function () {
         $('#projectTitle').change(function () {
             //alert($(this).val());
-           $.get("Project/ProjectDetails/", { "id": $(this).val() },
-             function (response) { 
-                            $("#results").html(response); 
-                        });
-
-                        ViewBag.id = $(this).val();
             $.ajax({
-                Url: "@Url.Action("ProjectDetails", "Project")",
-                data: { "id": $(this).val() }, 
-                success: function (response) { 
-                            $("#results").html(response); 
-                        },
-                dataType: "GET"
-            });
+            url: "Project/ProjectDetails/",
+            type: 'GET',
+            data: { input: $(this).val() },
+            success: function (response) {
+
+                $("#CurrentProjectData").html(response); 
+            },
+            error: function () {
+                alert("error");
+            }
+        });
 
         });
     }); 
 </script>
 
-<p>
-    @{Html.RenderPartial("ProjectDetails", Model, new ViewDataDictionary { {"vb", ViewBag}});}
-
+<p id="CurrentProjectData">
+    <!-- The scripts generates this content !-->
+    
+     
 </p>
