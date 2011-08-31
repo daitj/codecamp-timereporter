@@ -3,21 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
 {
-    public class TimeReportController : Controller
+    public class TimeRecordsController : Controller
     {
+        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
         //
-        // GET: /TimeReport/
+        // GET: /TimeRecords/
 
         public ActionResult Index()
         {
             return View();
         }
 
+        // POST: /TimeRecords
+        [HttpPost]
+        public ActionResult Index(TimeRecords time)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TimeRecords.Add(time);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(time);
+        }
+
         //
-        // GET: /TimeReport/Details/5
+        // GET: /TimeRecords/Details/5
 
         public ActionResult Details(int id)
         {
@@ -25,7 +41,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // GET: /TimeReport/Create
+        // GET: /TimeRecords/Create
 
         public ActionResult Create()
         {
@@ -33,7 +49,7 @@ namespace TimeReporting.Controllers
         } 
 
         //
-        // POST: /TimeReport/Create
+        // POST: /TimeRecords/Create
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -51,7 +67,7 @@ namespace TimeReporting.Controllers
         }
         
         //
-        // GET: /TimeReport/Edit/5
+        // GET: /TimeRecords/Edit/5
  
         public ActionResult Edit(int id)
         {
@@ -59,7 +75,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // POST: /TimeReport/Edit/5
+        // POST: /TimeRecords/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -77,7 +93,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // GET: /TimeReport/Delete/5
+        // GET: /TimeRecords/Delete/5
  
         public ActionResult Delete(int id)
         {
@@ -85,7 +101,7 @@ namespace TimeReporting.Controllers
         }
 
         //
-        // POST: /TimeReport/Delete/5
+        // POST: /TimeRecords/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
