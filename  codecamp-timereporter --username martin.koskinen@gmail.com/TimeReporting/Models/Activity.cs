@@ -10,7 +10,7 @@ namespace TimeReporting.Models
     public class Activity
     {   
         public int activityID { get; private set; }
-        public int projectId { get; set; }
+        public int projectID { get; set; }
         public string title { get; set; }
         public virtual Project Project { get; set; }
     }

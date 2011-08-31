@@ -15,6 +15,6 @@ namespace TimeReporting.Models
         public string managerName { get; set; }
         public virtual ICollection<ProjectMember> ProjectMembers { get; set; }
         public virtual ICollection<Activity> Activitys { get; set; }
-        public virtual ICollection<TimeRecord> TimeRecords { get; set; }
+        public virtual ICollection<TimeRecords> TimeRecords { get; set; }
     }
 }
