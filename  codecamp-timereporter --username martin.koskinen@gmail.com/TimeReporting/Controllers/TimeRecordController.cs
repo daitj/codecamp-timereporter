@@ -31,21 +31,26 @@ namespace TimeReporting.Controllers
             return View();
         }
 
-        // POST: /TimeRecords
+        public ActionResult IndexFrame()
+        {
+            return PartialView("IndexFrame");
+        }
+        // POST: /TimeRecords/IndexFrame
         [HttpPost]
-        public ActionResult Index(TimeRecord time)
+        public ActionResult IndexFrame(TimeRecord time)
         {
             if (ModelState.IsValid)
             {
                 string userName = User.Identity.Name;
                 time.userId = userName;
+                time.date = DateTime.Now;
                 db.TimeRecords.Add(time);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.success = true;
+                return PartialView("IndexFrame", time);
             }
-            return View(time);
+            return PartialView("IndexFrame",time);
         }
-
         //
         // GET: /TimeRecords/Details/5
 
@@ -63,22 +68,6 @@ namespace TimeReporting.Controllers
         } 
 
         //
-        // POST: /TimeRecords/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
         
         //
         // GET: /TimeRecords/Edit/5
