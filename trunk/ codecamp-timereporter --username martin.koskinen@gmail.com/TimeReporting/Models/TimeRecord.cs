@@ -31,5 +31,7 @@ namespace TimeReporting.Models
         [DataType(DataType.MultilineText)]
         public string comment { get; set; }
 
+        public virtual Activity Activity { get; set; }
+
     }
 }

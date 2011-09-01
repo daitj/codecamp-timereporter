@@ -13,8 +13,4 @@ namespace TimeReporting.Models
         public string chatMsg { get; set; }
         public DateTime timeStamp { get; set; }
     }
-    public class ChatMsgLogDBContext : DbContext
-    {
-        public DbSet<Chat> Chats { get; set; }
-    }
 }
