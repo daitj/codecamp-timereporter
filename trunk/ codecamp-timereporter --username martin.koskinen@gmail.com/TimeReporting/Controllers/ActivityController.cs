@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
-{
+{ 
     public class ActivityController : Controller
     {
+        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
+
         //
         // GET: /Activity/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
+            var activities = db.Activities.Include(a => a.Project);
+            return View(activities.ToList());
         }
 
         //
         // GET: /Activity/Details/5
 
-        public ActionResult Details(int id)
+        public ViewResult Details(int id)
         {
-            return View();
+            Activity activity = db.Activities.Find(id);
+            return View(activity);
         }
 
         //
@@ -29,6 +36,7 @@ namespace TimeReporting.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title");
             return View();
         } 
 
@@ -36,18 +44,17 @@ namespace TimeReporting.Controllers
         // POST: /Activity/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Activity activity)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                db.Activities.Add(activity);
+                db.SaveChanges();
+                return RedirectToAction("../ProjectManager/Index");  
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title", activity.projectID);
+            return View(activity);
         }
         
         //
@@ -55,25 +62,25 @@ namespace TimeReporting.Controllers
  
         public ActionResult Edit(int id)
         {
-            return View();
+            Activity activity = db.Activities.Find(id);
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title", activity.projectID);
+            return View(activity);
         }
 
         //
         // POST: /Activity/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Activity activity)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
- 
+                db.Entry(activity).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.projectID = new SelectList(db.Projects, "projectID", "title", activity.projectID);
+            return View(activity);
         }
 
         //
@@ -81,25 +88,26 @@ namespace TimeReporting.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View();
+            Activity activity = db.Activities.Find(id);
+            return View(activity);
         }
 
         //
         // POST: /Activity/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {            
+            Activity activity = db.Activities.Find(id);
+            db.Activities.Remove(activity);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
         {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
