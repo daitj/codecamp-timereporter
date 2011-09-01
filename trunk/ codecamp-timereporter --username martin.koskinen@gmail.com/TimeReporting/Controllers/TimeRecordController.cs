@@ -13,12 +13,12 @@ namespace TimeReporting.Controllers
         private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
         //
         // GET: /TimeRecords/
-
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public ActionResult IndexFrame()
         {
             List<Project> usersProjects = new List<Project>();
@@ -32,13 +32,12 @@ namespace TimeReporting.Controllers
                     }
                 }
             }
-
-
-
             ViewBag.projectID = new SelectList(usersProjects, "projectID", "title");
             return PartialView("IndexFrame");
         }
 
+        // GET: /TimeRecords/getActivity?pID=INT
+        [Authorize]
         public ActionResult getActivity(string pID)
         {
             try
@@ -62,7 +61,7 @@ namespace TimeReporting.Controllers
             return PartialView("getActivity");
         }
         // POST: /TimeRecords/IndexFrame
-        [HttpPost]
+        [HttpPost,Authorize]
         public ActionResult IndexFrame(TimeRecord time)
         {
             if (ModelState.IsValid)
@@ -77,75 +76,6 @@ namespace TimeReporting.Controllers
             }
             return PartialView("IndexFrame",time);
 
-        }
-        //
-        // GET: /TimeRecords/Details/5
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //
-        // GET: /TimeRecords/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
-        
-        //
-        // GET: /TimeRecords/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /TimeRecords/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /TimeRecords/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /TimeRecords/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
