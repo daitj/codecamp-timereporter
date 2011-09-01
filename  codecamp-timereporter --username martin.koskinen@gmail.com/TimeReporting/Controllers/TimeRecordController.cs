@@ -62,6 +62,7 @@ namespace TimeReporting.Controllers
         }
         // POST: /TimeRecords/IndexFrame
         [HttpPost,Authorize]
+        [ValidateInput(false)]   
         public ActionResult IndexFrame(TimeRecord time)
         {
             if (ModelState.IsValid)

@@ -5,7 +5,7 @@
     <select name="activityID">
     @foreach (var pId in ViewBag.activityID)
     {
-        <option class="@pId.Value">@pId.Text</option>
+        <option value="@pId.Value">@pId.Text</option>
     }
     </select>
 }
