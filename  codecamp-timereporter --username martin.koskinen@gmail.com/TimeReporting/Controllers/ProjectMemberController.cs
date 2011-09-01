@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
 {
     public class ProjectMemberController : Controller
     {
+        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
         //
         // GET: /ProjectMember/
 
@@ -24,25 +26,53 @@ namespace TimeReporting.Controllers
             return View();
         }
 
-        //
-        // GET: /ProjectMember/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
+        
 
         //
         // POST: /ProjectMember/Create
 
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        //[HttpPost]
+        public ActionResult RemoveMember(string projectID, string userName)
         {
             try
             {
-                // TODO: Add insert logic here
+                int id = Int32.Parse(projectID);
+                if (ModelState.IsValid)
+                {
+                    IEnumerable<ProjectMember> projectmember = from member in db.ProjectMembers
+                                                   where member.projectID == id && member.userName == userName
+                                                   select member;
 
-                return RedirectToAction("Index");
+                    foreach (var i in projectmember) {
+                        db.ProjectMembers.Remove(i);
+                    }
+                    
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("../ProjectManager/Edit", new { id = projectID });
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // POST: /ProjectMember/Create
+        //[HttpPost]
+        public ActionResult Create(string projectID, string userName)
+        {
+            try
+            {
+                int id = Int32.Parse(projectID);
+                if(ModelState.IsValid){
+
+                    db.ProjectMembers.Add(new ProjectMember() {userName = userName, projectID = id });
+                    db.SaveChanges();
+                }                
+
+                return RedirectToAction ("../ProjectManager/Edit", new {id = projectID});
             }
             catch
             {

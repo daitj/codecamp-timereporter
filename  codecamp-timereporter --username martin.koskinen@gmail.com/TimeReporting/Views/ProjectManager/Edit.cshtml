@@ -46,6 +46,55 @@
     </fieldset>
 }
 
+Add member: 
+@Html.DropDownList("projectnonMembers", String.Empty) 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#projectnonMembers').change(function () {
+            //alert($(this).val());
+            $.ajax({
+                url: "/ProjectMember/Create/",
+                type: 'GET',
+                data: {projectID: @Model.projectID, userName: $(this).val()},
+                success: function (response) {
+                    alert("Success!")
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        });
+    }); 
+</script>
+Remove member: 
+@Html.DropDownList("projectMembers", String.Empty) 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#projectMembers').change(function () {
+            //alert($(this).val());
+            $.ajax({
+                url: "/ProjectMember/RemoveMember/",
+                type: 'GET',
+                data: {projectID: @Model.projectID, userName: $(this).val()},
+                success: function (response) {
+                    alert("Success!")
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        });
+    }); 
+</script>
+
+
+<!-- $("#CurrentProjectData").html(response); !-->
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

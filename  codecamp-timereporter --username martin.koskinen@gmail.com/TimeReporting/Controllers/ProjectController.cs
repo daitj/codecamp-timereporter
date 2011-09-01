@@ -51,7 +51,6 @@ namespace TimeReporting.Controllers
             }*/
             ViewBag.projectTitle = new SelectList(db.Projects, "projectID", "title");
             return View();
-            //return View();
         }
 
         //
