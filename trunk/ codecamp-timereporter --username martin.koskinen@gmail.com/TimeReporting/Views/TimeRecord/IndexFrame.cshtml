@@ -51,8 +51,13 @@ body
         </tr>
         <tr>
         <td class="editor-field">
-                @Html.DropDownList("projectID", "Choose one...") 
-                @Html.ValidationMessageFor(m => m.projectID)
+            <select id="projectID" name="projectID">
+            <option value="">Choose one..</option>
+            @foreach (var pId in ViewBag.projectID)
+            {
+                <option value="@pId.Value">@pId.Text</option>
+            }
+            </select>
         </td>
         <td class="editor-field">
                 <span id="activityIDContainer"><select name="activityID"><option value="">Select Project First</option></select></span>
@@ -113,7 +118,6 @@ else
         <td class="editor-label">
                 @Html.LabelFor(model => model.comment)
         </td>
-        <td class="editor-label">&nbsp;</td>
         </tr>
         <tr>
         <td class="editor-label">
@@ -129,7 +133,6 @@ else
         <td class="editor-label">
                 @Html.DisplayFor(model => model.comment)
         </td>
-        <td class="editor-label">&nbsp;</td>
         </tr>
     </table>
 }
