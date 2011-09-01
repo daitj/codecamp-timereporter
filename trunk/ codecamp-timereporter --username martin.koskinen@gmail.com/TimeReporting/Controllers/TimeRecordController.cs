@@ -16,6 +16,11 @@ namespace TimeReporting.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult IndexFrame()
+        {
             List<Project> usersProjects = new List<Project>();
             foreach (var temp in db.Projects)
             {
@@ -27,13 +32,34 @@ namespace TimeReporting.Controllers
                     }
                 }
             }
-            ViewBag.Tprojects = new SelectList(usersProjects, "projectID", "title");
-            return View();
+
+
+
+            ViewBag.projectID = new SelectList(usersProjects, "projectID", "title");
+            return PartialView("IndexFrame");
         }
 
-        public ActionResult IndexFrame()
+        public ActionResult getActivity(string pID)
         {
-            return PartialView("IndexFrame");
+            try
+            {
+                int id = Int32.Parse(pID);
+                List<Activity> projectActivity = new List<Activity>();
+                foreach (var temp in db.Activities)
+                {
+                    if (id == temp.projectID)
+                    {
+                        projectActivity.Add(temp);
+                    }
+                }
+                ViewBag.activityID = new SelectList(projectActivity, "activityID", "title");
+
+            }
+            catch
+            {
+                return PartialView("getActivity");
+            }
+            return PartialView("getActivity");
         }
         // POST: /TimeRecords/IndexFrame
         [HttpPost]
@@ -50,6 +76,7 @@ namespace TimeReporting.Controllers
                 return PartialView("IndexFrame", time);
             }
             return PartialView("IndexFrame",time);
+
         }
         //
         // GET: /TimeRecords/Details/5

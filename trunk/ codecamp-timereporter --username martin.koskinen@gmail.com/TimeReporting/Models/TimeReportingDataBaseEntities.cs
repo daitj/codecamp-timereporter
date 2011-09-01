@@ -37,7 +37,7 @@ namespace TimeReporting.Models
             List<string> names = new List<string>();
             names.Add("oka");
             names.Add("Martin");
-
+            names.Add("binay");
 
             var projects = new Project() {title = "Dricka kaffe", client = "Åbo Akademi", managerName = "Backa"};
             context.Projects.Add(projects);
