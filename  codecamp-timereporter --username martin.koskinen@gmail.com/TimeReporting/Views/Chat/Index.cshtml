@@ -38,41 +38,38 @@
     }
 </table>
 </div>
-<form action="" method="get" id="send">
-<input type="text" id="msgbox" />
-<input type="submit" value="Send Me" />
+<form action="/chat/Create" method="post" id="send">
+    <input type="text" id="msgbox" />
+    <input type="submit" value="Send Me" />
 </form>
 <script type="text/javascript">
     function update() {
         $.ajax({
             url: "/chat/chatUpdate/",
             type: 'GET',
-            success: function (response) {
-                $("div#updates").html(response)
+            success: function (r) {
+                $("div#updates").html(r)
             },
             error: function () {
-               alert("error is here.... ");
+              alert("error is here.... ");
             }
         });
         window.setTimeout("update()", 10000);
     }
     $(document).ready(function () {
-        $("form#send").submit(function () {
+        $("form#send").submit(function (e) {
+            e.preventDefault();
             $.ajax({
                 url: "/chat/Create",
                 type: 'POST',
-                data: { chatMsg: $("input#msgbox").val() },
-                success: function (response) {
+                data: {chatMsg: $("input#msgbox").val()},
+                success: function (r) {
                     update();
+                    $("input#msgbox").val("");
                 },
-                error: function () {
-                    alert("error");
-                    alert(response);
-                }
             });
-
+            return false;
         });
         update();
-
     })
 </script>
