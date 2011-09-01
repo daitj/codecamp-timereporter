@@ -49,11 +49,6 @@
                 @Html.ValidationMessageFor(m => m.comment)
         </td>
         <td class="editor-field">
-         <script>
-            $(function () {
-                $("#date").datepicker();
-            });
-	        </script>
                 @Html.TextBoxFor(m => m.date)
                 @Html.ValidationMessageFor(m => m.date)
         </td>
@@ -65,7 +60,19 @@
         </p>
     </fieldset>
 }
+<ul class="projects"> 
+@foreach (var pId in ViewBag.Tprojects)
+{
+<li class="@pId.Value">@pId.Text</li>
+}
+</ul>
 
+<script>
+$(function () {
+        $("#date").datepicker();
+});
+</script>
+         
 
 @*
 <p>
