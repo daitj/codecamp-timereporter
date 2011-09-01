@@ -12,7 +12,23 @@ namespace TimeReporting.Models
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectMember> ProjectMembers { get; set; }
         public DbSet<TimeRecord> TimeRecords { get; set; }
-    }
+        public DbSet<Chat> Chats { get; set; }
+
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TimeRecord>()
+                .HasRequired(e => e.Activity)
+                .WithMany()
+                .HasForeignKey(e => e.activityID)
+                .WillCascadeOnDelete(false);
+        }
+  }
+
+
+
+
 
     public class TimeDataBaseInitializer : DropCreateDatabaseAlways<TimeReportingDataBaseEntities>
     {

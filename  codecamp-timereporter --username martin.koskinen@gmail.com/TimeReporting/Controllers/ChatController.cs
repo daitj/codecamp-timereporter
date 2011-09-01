@@ -11,7 +11,7 @@ namespace TimeReporting.Controllers
 { 
     public class ChatController : Controller
     {
-        private ChatMsgLogDBContext db = new ChatMsgLogDBContext();    
+        private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();    
         //
         // GET: /Chat/
 

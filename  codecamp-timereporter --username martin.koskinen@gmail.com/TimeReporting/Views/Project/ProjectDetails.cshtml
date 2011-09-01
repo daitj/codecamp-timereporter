@@ -34,14 +34,7 @@
                 @Html.DisplayFor(modelItem => item.userId)
             </td>
             <td>
-                @foreach(var i in Model.Activitys)
-                {
-                    if(i.activityID == item.activityID)
-                    {
-                        @Html.DisplayFor(modelItem => i.title)
-                    }
-                }                   
-                
+                @Html.DisplayFor(modelitem => item.Activity.title)                                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.minutes)
