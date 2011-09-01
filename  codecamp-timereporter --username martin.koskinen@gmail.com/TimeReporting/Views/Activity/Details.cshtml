@@ -1,0 +1,25 @@
+﻿@model TimeReporting.Models.Activity
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Activity</legend>
+
+    <div class="display-label">Project</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Project.title)
+    </div>
+
+    <div class="display-label">title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.title)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.activityID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
