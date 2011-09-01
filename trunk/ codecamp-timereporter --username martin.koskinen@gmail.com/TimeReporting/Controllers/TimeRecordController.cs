@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TimeReporting.Models;
 
+
 namespace TimeReporting.Controllers
 {
     public class TimeRecordController : Controller
@@ -15,6 +16,18 @@ namespace TimeReporting.Controllers
 
         public ActionResult Index()
         {
+            List<Project> usersProjects = new List<Project>();
+            foreach (var temp in db.Projects)
+            {
+                foreach (var innerTemp in temp.ProjectMembers)
+                {
+                    if (innerTemp.userName == User.Identity.Name)
+                    {
+                        usersProjects.Add(temp);
+                    }
+                }
+            }
+            ViewBag.Tprojects = new SelectList(usersProjects, "projectID", "title");
             return View();
         }
 
@@ -24,11 +37,12 @@ namespace TimeReporting.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userName = User.Identity.Name;
+                time.userId = userName;
                 db.TimeRecords.Add(time);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(time);
         }
 

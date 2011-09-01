@@ -24,7 +24,8 @@ namespace TimeReporting.Models
 
         [Display(Name = "Hour")]
         public int minutes { get; set; }
-
+        
+        [Display(Name = "Date")]
         public DateTime date { get; set; }
 
         [Display(Name = "Comment")]
