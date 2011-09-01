@@ -22,14 +22,13 @@ namespace TimeReporting.Models
 
         public string userId { get; set; }
 
-        [Display(Name = "Hour")]
+        [Display(Name = "Time(HH:MM)")]
         public int minutes { get; set; }
         
         [Display(Name = "Date")]
         public DateTime date { get; set; }
 
         [Display(Name = "Comment")]
-        [DataType(DataType.MultilineText)]
         public string comment { get; set; }
 
         public virtual Activity Activity { get; set; }
