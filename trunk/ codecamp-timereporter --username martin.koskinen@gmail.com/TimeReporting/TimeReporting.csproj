@@ -68,7 +68,6 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\AllowAnonymousAttribute.cs" />
     <Compile Include="Controllers\ChatController.cs" />
-    <Compile Include="Controllers\ChatNCollectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogOnAuthorize.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -176,6 +175,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Chat\.svn\prop-base\" />
+    <Folder Include="Views\Chat\.svn\props\" />
+    <Folder Include="Views\Chat\.svn\tmp\prop-base\" />
+    <Folder Include="Views\Chat\.svn\tmp\props\" />
+    <Folder Include="Views\Chat\.svn\tmp\text-base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Project\ProjectDetails.cshtml" />

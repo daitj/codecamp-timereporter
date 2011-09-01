@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TimeReporting.Models;
+using System.Web.Security;
 
 namespace TimeReporting.Controllers
 { 
@@ -13,9 +14,28 @@ namespace TimeReporting.Controllers
     public class ProjectManagerController : Controller
     {
         private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();
+        Project currentProject = null;
 
         //
         // GET: /ProjectManager/
+
+        public ActionResult AddMember(string member)
+        {
+             try
+            {
+                if(ModelState.IsValid){
+
+                    db.ProjectMembers.Add(new ProjectMember() {userName = member, projectID=currentProject.projectID });
+                    db.SaveChanges();
+                }                
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         public ViewResult Index()
         {
@@ -60,6 +80,25 @@ namespace TimeReporting.Controllers
  
         public ActionResult Edit(int id)
         {
+            MembershipUserCollection allUsers = Membership.GetAllUsers();
+            IEnumerable<string> temp = from member in db.ProjectMembers
+                                               where member.Project.projectID == id
+                                               select member.userName;
+
+            List<string> temp2 = temp.ToList();
+            List<string> allUsernames = new List<string>();
+
+            foreach(MembershipUser i in allUsers){
+                allUsernames.Add(i.UserName);
+            }
+
+            foreach (var user in temp2)
+            {   
+                if (allUsernames.Contains(user)) allUsernames.Remove(user);
+            }
+
+            ViewBag.projectnonMembers = new SelectList((IEnumerable<string>)allUsernames);
+            ViewBag.projectMembers = new SelectList(temp);
             Project project = db.Projects.Find(id);
             return View(project);
         }

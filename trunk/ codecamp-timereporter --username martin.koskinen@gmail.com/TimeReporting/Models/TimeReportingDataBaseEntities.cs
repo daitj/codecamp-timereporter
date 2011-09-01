@@ -35,7 +35,7 @@ namespace TimeReporting.Models
         protected override void Seed(TimeReportingDataBaseEntities context)
         {
             List<string> names = new List<string>();
-            names.Add("Oka");
+            names.Add("oka");
             names.Add("Martin");
 
 
