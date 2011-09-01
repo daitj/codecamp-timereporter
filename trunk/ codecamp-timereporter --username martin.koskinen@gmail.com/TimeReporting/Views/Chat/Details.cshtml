@@ -1,0 +1,30 @@
+﻿@model TimeReporting.Models.Chat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Chat</legend>
+
+    <div class="display-label">userId</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.userName)
+    </div>
+
+    <div class="display-label">chatMsg</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.chatMsg)
+    </div>
+
+    <div class="display-label">timeStamp</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.timeStamp)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.chatId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
