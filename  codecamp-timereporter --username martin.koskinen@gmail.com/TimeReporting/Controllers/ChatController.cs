@@ -1,27 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TimeReporting.Models;
 
 namespace TimeReporting.Controllers
-{
+{ 
     public class ChatController : Controller
     {
+        private ChatMsgLogDBContext db = new ChatMsgLogDBContext();    
         //
         // GET: /Chat/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
+            return View(db.Chats.ToList());
         }
 
         //
         // GET: /Chat/Details/5
 
-        public ActionResult Details(int id)
+        public ViewResult Details(int id)
         {
-            return View();
+            Chat chat = db.Chats.Find(id);
+            return View(chat);
         }
 
         //
@@ -36,70 +41,57 @@ namespace TimeReporting.Controllers
         // POST: /Chat/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Chat chat)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                chat.timeStamp = DateTime.Now.ToUniversalTime();
+                chat.userName = User.Identity.Name;
+                db.Chats.Add(chat);
+                db.SaveChanges();
+                return RedirectToAction("Index");  
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(chat);
         }
         
         //
         // GET: /Chat/Edit/5
  
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        
 
         //
         // POST: /Chat/Edit/5
 
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         //
         // GET: /Chat/Delete/5
  
         public ActionResult Delete(int id)
         {
-            return View();
+            Chat chat = db.Chats.Find(id);
+            return View(chat);
         }
 
         //
         // POST: /Chat/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {            
+            Chat chat = db.Chats.Find(id);
+            if (chat.userName == User.Identity.Name) {
+                db.Chats.Remove(chat);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
         {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
