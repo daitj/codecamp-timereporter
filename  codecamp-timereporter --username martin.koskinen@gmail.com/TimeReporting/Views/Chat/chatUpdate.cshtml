@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TimeReporting.Models.Chat>
+
+
+<table>
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Message
+        </th>
+        <th>
+            Time
+        </th>
+        <th></th>
+    </tr>
+@if(Model != null){
+foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.chatMsg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.timeStamp)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.chatId })
+        </td>
+    </tr>
+}
+}
+</table>

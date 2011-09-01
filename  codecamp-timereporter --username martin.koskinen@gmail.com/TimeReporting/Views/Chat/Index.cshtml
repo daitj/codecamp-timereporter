@@ -1,44 +1,78 @@
 ﻿@model IEnumerable<TimeReporting.Models.Chat>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Chat";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div id="updates">
 <table>
     <tr>
         <th>
-            userId
+            User
         </th>
         <th>
-            chatMsg
+            Message
         </th>
         <th>
-            timeStamp
+            Time
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.userName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.chatMsg)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.timeStamp)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.chatId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.chatId })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.chatMsg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.timeStamp)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.chatId })
+            </td>
+        </tr>
+    }
 </table>
+</div>
+<form action="" method="get" id="send">
+<input type="text" id="msgbox" />
+<input type="submit" value="Send Me" />
+</form>
+<script type="text/javascript">
+    function update() {
+        $.ajax({
+            url: "/chat/chatUpdate/",
+            type: 'GET',
+            success: function (response) {
+                $("div#updates").html(response)
+            },
+            error: function () {
+               alert("error is here.... ");
+            }
+        });
+        window.setTimeout("update()", 10000);
+    }
+    $(document).ready(function () {
+        $("form#send").submit(function () {
+            $.ajax({
+                url: "/chat/Create",
+                type: 'POST',
+                data: { chatMsg: $("input#msgbox").val() },
+                success: function (response) {
+                    update();
+                },
+                error: function () {
+                    alert("error");
+                    alert(response);
+                }
+            });
+
+        });
+        update();
+
+    })
+</script>

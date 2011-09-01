@@ -14,7 +14,14 @@ namespace TimeReporting.Controllers
         private TimeReportingDataBaseEntities db = new TimeReportingDataBaseEntities();    
         //
         // GET: /Chat/
+        [Authorize]
+        public ActionResult chatUpdate()
+        {
+            return PartialView("chatUpdate", db.Chats.ToList());
+        }
 
+        // GET: /Chat/
+        [Authorize]
         public ViewResult Index()
         {
             return View(db.Chats.ToList());
@@ -22,7 +29,7 @@ namespace TimeReporting.Controllers
 
         //
         // GET: /Chat/Details/5
-
+        [Authorize]
         public ViewResult Details(int id)
         {
             Chat chat = db.Chats.Find(id);
@@ -31,7 +38,7 @@ namespace TimeReporting.Controllers
 
         //
         // GET: /Chat/Create
-
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -39,8 +46,8 @@ namespace TimeReporting.Controllers
 
         //
         // POST: /Chat/Create
-
-        [HttpPost]
+        
+        [HttpPost][Authorize]
         public ActionResult Create(Chat chat)
         {
             if (ModelState.IsValid)
@@ -67,17 +74,26 @@ namespace TimeReporting.Controllers
 
         //
         // GET: /Chat/Delete/5
- 
+        [Authorize]
         public ActionResult Delete(int id)
         {
             Chat chat = db.Chats.Find(id);
-            return View(chat);
+            if (chat.userName == User.Identity.Name)
+            {
+                return View(chat);
+            }
+            else
+            {
+                ViewBag.error = "This is huge error";
+                return View();
+            }
+            
         }
 
         //
         // POST: /Chat/Delete/5
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Delete"), Authorize]
         public ActionResult DeleteConfirmed(int id)
         {            
             Chat chat = db.Chats.Find(id);
