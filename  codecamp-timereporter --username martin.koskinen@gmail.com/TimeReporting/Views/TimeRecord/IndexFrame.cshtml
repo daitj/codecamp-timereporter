@@ -52,7 +52,7 @@ body
         <tr>
         <td class="editor-field">
             <select id="projectID" name="projectID">
-            <option value="">Choose one..</option>
+            <option value="0">Choose one..</option>
             @foreach (var pId in ViewBag.projectID)
             {
                 <option value="@pId.Value">@pId.Text</option>
@@ -87,7 +87,7 @@ body
             });
             $("select#projectID").change(function () {
                 var pID = $(this).val();
-                if (pID != "") {
+                if (pID != "0") {
                     $.ajax({
                         url: "/TimeRecord/getActivity?pID=" + pID,
                         type: 'GET',
@@ -97,7 +97,7 @@ body
                     });
                 }
                 else {
-                  $("span#activityIDContainer").('<select name="activityID"><option value="">Select Project First</option></select>');
+                  $("span#activityIDContainer").html('<select name="activityID"><option value="">Select Project First</option></select>');
                 }
             });
         });
